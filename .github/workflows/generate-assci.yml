@@ -1,6 +1,7 @@
 name: ganerate ASSCI 
 
-on: push
+on:
+  push
 
 jobs:
     assci_job:
@@ -9,16 +10,18 @@ jobs:
         - name: checkout the repo
           uses: actions/checkout@v4
 
-        - name: Instlla cowsay program and list the file and read the content
+        - name: Install cowsay program and list the file and read the content
           run: sudo apt-get install cowsay -y
 
         - name: install cowsay
-          run: cowsay -f dragon "Who dared to wake me up?" >> dargon.txt
+          run: cowsay -f dragon "Who dared to wake me up?" >>dargon.txt
 
         - name: find the file
           run: grep -i "dragon" dragon.txt
+
         - name: read the file
           run: cat dragon.txt
+
         - name: listing all the files
           run: ls -lrta
 
