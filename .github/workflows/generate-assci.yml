@@ -1,0 +1,19 @@
+name: ganerate ASSCI 
+
+on: push
+
+jobs:
+    assci_job:
+        runs-on: ubuntu-latest
+        steps:
+        - name: checkout the repo
+          uses: actions/checkout@v4
+
+        - name: Instlla cowsay program and list the file and read the content
+          run: |
+            sudo apt-get install cowsay -y
+            cowsay -f dragon "Who dared to wake me up?" >> dargon.txt
+            grep -i "dragon" dragon.txt
+            cat dragon.txt
+            ls -lrta
+        
