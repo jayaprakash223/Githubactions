@@ -20,7 +20,6 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: dargon-txt-file
-        path: dragon.txt
   test_job: 
     needs: build_job
     runs-on: ubuntu-latest
@@ -29,7 +28,6 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: dargon-txt-file
-        path: dragon.txt
 
     - name: Find the ASCII art file
       run: grep -i "dragon" dragon.txt || true
