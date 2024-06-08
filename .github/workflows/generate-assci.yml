@@ -1,33 +1,27 @@
-name: ganerate ASSCI 
+name: Generate ASCII Art
 
 on:
   push
 
 jobs:
-    assci_job:
-        runs-on: ubuntu-latest
-        steps:
-        - name: checkout the repo
-          uses: actions/checkout@v4
+  ascii_job:
+    runs-on: ubuntu-latest
 
-        - name: Install cowsay program and list the file and read the content
-          run: sudo apt-get install cowsay -y
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
 
-        - name: install cowsay
-          run: cowsay -f dragon "Who dared to wake me up?" >>dargon.txt
+    - name: Install cowsay
+      run: sudo apt-get install cowsay -y
 
-        - name: find the file
-          run: grep -i "dragon" dragon.txt
+    - name: Create ASCII art with cowsay
+      run: cowsay -f dragon "Who dared to wake me up?" > dragon.txt
 
-        - name: read the file
-          run: cat dragon.txt
+    - name: Find the ASCII art file
+      run: grep -i "dragon" dragon.txt
 
-        - name: listing all the files
-          run: ls -lrta
+    - name: Read the ASCII art file
+      run: cat dragon.txt
 
-          
-            
-            
-            
-            
-        
+    - name: List all files
+      run: ls -lrta
