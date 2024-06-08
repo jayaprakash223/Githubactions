@@ -9,11 +9,16 @@ jobs:
         - name: checkout the code
           uses: actions/checkout@v4
         
-        - name: Welcome-meassage
-          run: echo "my frist job"
+        - name: list and read the file
+          run: |
+            echo "my frist job"
+            ls -lrta
+            cat README.md
+        - name: Generat ASSCI Artwork
+          run: cowsay -f dragon "Who dared to wake me up?" >> dargon.txt
 
-        - name: list files
-          run: ls
+        # - name: list files
+        #   run: ls
 
-        - name: read file
-          run: cat README.md
+        # - name: read file
+        #   run: cat README.md
