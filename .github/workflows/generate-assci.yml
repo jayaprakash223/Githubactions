@@ -4,7 +4,7 @@ on:
   push
 
 jobs:
-  ascii_job:
+  build_job:
     runs-on: ubuntu-latest
 
     steps:
@@ -13,7 +13,10 @@ jobs:
 
     - name: Install cowsay
       run: sudo apt-get install cowsay -y
-
+  test_job: 
+    needs: build_job
+    runs-on: ubuntu-latest
+    steps:
     - name: Create ASCII art with cowsay
       run: cowsay -f dragon "Who dared to wake me up?" > dragon.txt
 
@@ -22,6 +25,9 @@ jobs:
 
     - name: Read the ASCII art file
       run: cat dragon.txt
-
+  deploy_job:
+    needs: [test_job]
+    runs-on: ubuntu-latest
+    steps:
     - name: List all files
       run: ls -lrta
