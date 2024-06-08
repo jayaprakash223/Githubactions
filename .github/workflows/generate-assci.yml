@@ -16,14 +16,20 @@ jobs:
     - name: Create ASCII art with cowsay
       run: cowsay -f dragon "Who dared to wake me up?" > dragon.txt
     
-    - name: sleep for 30 sec
-      run: sleep 30
+    - name: Upload ASCII art file as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: dargon-txt-file
+        path: dragon.txt
   test_job: 
     needs: build_job
     runs-on: ubuntu-latest
     steps:
-    - name: sleep for 10 sec
-      run: sleep 10
+    - name: Upload ASCII art file as artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: dargon-txt-file
+        path: dragon.txt
 
     - name: Find the ASCII art file
       run: grep -i "dragon" dragon.txt || true
@@ -34,5 +40,10 @@ jobs:
     needs: [test_job]
     runs-on: ubuntu-latest
     steps:
+    - name: Upload ASCII art file as artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: dargon-txt-file
+        path: dragon.txt
     - name: List all files
       run: ls -lrta
