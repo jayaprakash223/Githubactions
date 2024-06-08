@@ -18,7 +18,7 @@ jobs:
       run: cowsay -f dragon "Who dared to wake me up?" > dragon.txt
 
     - name: Find the ASCII art file
-      run: grep -i "dragon" dragon.txt
+      run: grep -i "dragon" dragon.txt || true
 
     - name: Read the ASCII art file
       run: cat dragon.txt
