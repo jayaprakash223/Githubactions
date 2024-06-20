@@ -13,36 +13,49 @@ jobs:
 
     - name: Install cowsay
       run: sudo apt-get install cowsay -y
+
     - name: Create ASCII art with cowsay
       run: cowsay -f dragon "Who dared to wake me up?" > dragon.txt
-    
+
     - name: Upload ASCII art file as artifact
       uses: actions/upload-artifact@v3
       with:
-        name: dargon-txt-file
+        name: dragon-txt-file
         path: dragon.txt
-  test_job: 
+
+  test_job:
     needs: build_job
     runs-on: ubuntu-latest
+
     steps:
-    - name: Upload ASCII art file as artifact
+    - name: Download ASCII art file as artifact
       uses: actions/download-artifact@v3
       with:
-        name: dargon-txt-file
+        name: dragon-txt-file
 
     - name: Find the ASCII art file
       run: grep -i "dragon" dragon.txt || true
 
     - name: Read the ASCII art file
       run: cat dragon.txt
+
   deploy_job:
     needs: [test_job]
     runs-on: ubuntu-latest
+
     steps:
-    - name: Upload ASCII art file as artifact
+    - name: Download ASCII art file as artifact
       uses: actions/download-artifact@v3
       with:
-        name: dargon-txt-file
-        path: dragon.txt
+        name: dragon-txt-file
+
     - name: List all files
       run: ls -lrta
+
+    - name: Add caching step to the pipeline
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache
+        key: ${{ runner.os }}-build-${{ hashFiles('**/dragon.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-build-
